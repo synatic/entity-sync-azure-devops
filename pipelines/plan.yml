@@ -1,0 +1,32 @@
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  PLAN_PATH: .synatic/plans/plan.json
+
+steps:
+  - checkout: self
+    persistCredentials: true
+
+  - task: SynaticEntitySync@1
+    displayName: Generate entity sync plan
+    inputs:
+      command: plan
+      apiUrl: $(SYNATIC_API_URL)
+      apiKey: $(SYNATIC_API_KEY)
+      sourceOrgId: $(SOURCE_ORG_ID)
+      rootType: $(ROOT_TYPE)
+      rootId: $(ROOT_ID)
+      roots: $(ROOTS)
+      planPath: $(PLAN_PATH)
+      planOptions: $(PLAN_OPTIONS)
+      autoCommit: true
+      createPr: $(CREATE_PR)
+      prTitle: $(PR_TITLE)
+      prBody: $(PR_BODY)
+      prBaseBranch: $(PR_BASE_BRANCH)
+      commitMessage: $(COMMIT_MESSAGE)
+    env:
+      SYSTEM_ACCESSTOKEN: $(System.AccessToken)

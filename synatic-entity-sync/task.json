@@ -1,0 +1,173 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+  "id": "c8f4a2b1-3d5e-4f67-9a8b-1e2d3c4b5a6f",
+  "name": "SynaticEntitySync",
+  "friendlyName": "Synatic Entity Sync",
+  "description": "Generate entity sync plans from a Synatic org and commit them to Azure Repos, or execute a committed plan against a destination org.",
+  "helpMarkDown": "See the [extension documentation](https://github.com/synatic/entity-sync-azure-devops) for setup, permissions, and examples.",
+  "category": "Utility",
+  "author": "Synatic",
+  "version": {
+    "Major": 1,
+    "Minor": 0,
+    "Patch": 0
+  },
+  "instanceNameFormat": "Synatic Entity Sync $(command)",
+  "inputs": [
+    {
+      "name": "command",
+      "type": "pickList",
+      "label": "Command",
+      "required": true,
+      "defaultValue": "plan",
+      "options": {
+        "plan": "plan",
+        "execute": "execute"
+      },
+      "helpMarkDown": "Plan generates a sync plan from the source org. Execute runs preview and/or execute against the destination org."
+    },
+    {
+      "name": "apiUrl",
+      "type": "string",
+      "label": "Synatic API URL",
+      "required": true,
+      "helpMarkDown": "Synatic API base URL without a trailing slash."
+    },
+    {
+      "name": "apiKey",
+      "type": "string",
+      "label": "Synatic API key",
+      "required": true,
+      "properties": {
+        "visibility": "Password"
+      },
+      "helpMarkDown": "Synatic org API key (syn_api_...). Mark as a secret when binding pipeline variables."
+    },
+    {
+      "name": "sourceOrgId",
+      "type": "string",
+      "label": "Source organization ID",
+      "required": false,
+      "helpMarkDown": "Source organization MongoDB ObjectId for the plan command."
+    },
+    {
+      "name": "rootType",
+      "type": "string",
+      "label": "Root type",
+      "required": false,
+      "helpMarkDown": "Root entity type for plan (flow, solution, parameter, etc.). Use with Root ID, or use Roots instead."
+    },
+    {
+      "name": "rootId",
+      "type": "string",
+      "label": "Root ID",
+      "required": false,
+      "helpMarkDown": "Root entity MongoDB ObjectId for the plan command."
+    },
+    {
+      "name": "roots",
+      "type": "string",
+      "label": "Roots (JSON)",
+      "required": false,
+      "helpMarkDown": "JSON array of `{ \"rootType\", \"rootId\" }` objects. Alternative to Root type + Root ID."
+    },
+    {
+      "name": "planPath",
+      "type": "string",
+      "label": "Plan path",
+      "required": false,
+      "defaultValue": ".synatic/plans/plan.json",
+      "helpMarkDown": "Repository-relative path for the plan JSON file."
+    },
+    {
+      "name": "planOptions",
+      "type": "string",
+      "label": "Plan options (JSON)",
+      "required": false,
+      "defaultValue": "{}",
+      "helpMarkDown": "JSON object passed to the Synatic plan API."
+    },
+    {
+      "name": "autoCommit",
+      "type": "boolean",
+      "label": "Auto commit plan",
+      "required": false,
+      "defaultValue": "true",
+      "helpMarkDown": "For plan: commit the generated plan files to Azure Repos."
+    },
+    {
+      "name": "createPr",
+      "type": "boolean",
+      "label": "Create pull request",
+      "required": false,
+      "defaultValue": "true",
+      "helpMarkDown": "For plan with auto commit: open a pull request into the base branch."
+    },
+    {
+      "name": "prTitle",
+      "type": "string",
+      "label": "Pull request title",
+      "required": false,
+      "helpMarkDown": "Optional PR title when Create pull request is enabled."
+    },
+    {
+      "name": "prBody",
+      "type": "string",
+      "label": "Pull request body",
+      "required": false,
+      "helpMarkDown": "Optional PR description when Create pull request is enabled."
+    },
+    {
+      "name": "prBaseBranch",
+      "type": "string",
+      "label": "PR base branch",
+      "required": false,
+      "defaultValue": "main",
+      "helpMarkDown": "Base branch for commits and pull requests."
+    },
+    {
+      "name": "commitMessage",
+      "type": "string",
+      "label": "Commit message",
+      "required": false,
+      "defaultValue": "chore: update entity sync plan",
+      "helpMarkDown": "Commit message when auto commit is enabled."
+    },
+    {
+      "name": "destOrgId",
+      "type": "string",
+      "label": "Destination organization ID",
+      "required": false,
+      "helpMarkDown": "Destination organization MongoDB ObjectId for the execute command."
+    },
+    {
+      "name": "previewFirst",
+      "type": "boolean",
+      "label": "Preview first",
+      "required": false,
+      "defaultValue": "true",
+      "helpMarkDown": "For execute: run preview before execute."
+    },
+    {
+      "name": "previewOnly",
+      "type": "boolean",
+      "label": "Preview only",
+      "required": false,
+      "defaultValue": "false",
+      "helpMarkDown": "For execute: stop after preview without executing."
+    },
+    {
+      "name": "failOnConflict",
+      "type": "boolean",
+      "label": "Fail on conflict",
+      "required": false,
+      "defaultValue": "true",
+      "helpMarkDown": "For execute: fail when preview reports conflicts."
+    }
+  ],
+  "execution": {
+    "Node20_1": {
+      "target": "index.js"
+    }
+  }
+}

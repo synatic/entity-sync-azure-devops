@@ -1,0 +1,38 @@
+{
+  "name": "entity-sync-azure-devops",
+  "version": "1.0.0",
+  "description": "Azure DevOps Marketplace extension for Synatic entity sync with Azure Repos git support",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "esbuild synatic-entity-sync/task-entry.js --bundle --platform=node --format=cjs --outfile=synatic-entity-sync/index.js --packages=bundle",
+    "lint": "eslint src test synatic-entity-sync/task-entry.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "package:vsix": "npm run build && tfx extension create --manifest-globs vss-extension.json",
+    "publish:vsix": "npm run package:vsix && tfx extension publish --manifest-globs vss-extension.json"
+  },
+  "keywords": [
+    "synatic",
+    "entity-sync",
+    "azure-devops",
+    "marketplace"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@synatic/entity-sync-core": "^1.0.0",
+    "azure-pipelines-task-lib": "^5.2.1",
+    "got": "^14.4.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "esbuild": "^0.25.0",
+    "eslint": "^9.17.0",
+    "globals": "^15.14.0",
+    "tfx-cli": "^0.21.2",
+    "vitest": "^2.1.8"
+  }
+}

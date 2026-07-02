@@ -1,0 +1,51 @@
+{
+  "manifestVersion": 1,
+  "id": "entity-sync",
+  "name": "Synatic Entity Sync",
+  "version": "1.0.0",
+  "publisher": "synatic",
+  "public": true,
+  "description": "Plan and execute Synatic entity sync from Azure Pipelines with Azure Repos auto-commit and pull requests.",
+  "categories": ["Azure Pipelines"],
+  "tags": ["synatic", "entity-sync", "azure repos", "data integration"],
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services"
+    }
+  ],
+  "icons": {
+    "default": "images/extension-icon.png"
+  },
+  "links": {
+    "getstarted": {
+      "uri": "https://github.com/synatic/entity-sync-azure-devops"
+    },
+    "support": {
+      "uri": "https://github.com/synatic/entity-sync-azure-devops/issues"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "uri": "https://github.com/synatic/entity-sync-azure-devops"
+  },
+  "content": {
+    "details": {
+      "path": "overview.md"
+    }
+  },
+  "files": [
+    {
+      "path": "synatic-entity-sync"
+    }
+  ],
+  "contributions": [
+    {
+      "id": "synatic-entity-sync-task",
+      "type": "ms.vss-distributed-task.task",
+      "targets": ["ms.vss-distributed-task.tasks"],
+      "properties": {
+        "name": "synatic-entity-sync"
+      }
+    }
+  ]
+}

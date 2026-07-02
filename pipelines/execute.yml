@@ -1,0 +1,25 @@
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  PLAN_PATH: .synatic/plans/plan.json
+
+steps:
+  - checkout: self
+    persistCredentials: true
+
+  - task: SynaticEntitySync@1
+    displayName: Execute entity sync plan
+    inputs:
+      command: execute
+      apiUrl: $(SYNATIC_API_URL)
+      apiKey: $(SYNATIC_API_KEY)
+      destOrgId: $(DEST_ORG_ID)
+      planPath: $(PLAN_PATH)
+      previewFirst: true
+      previewOnly: $(PREVIEW_ONLY)
+      failOnConflict: true
+    env:
+      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
