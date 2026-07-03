@@ -39,12 +39,26 @@ export class AzureReposGit {
 
   /**
    * @param {string} branchName
+   * @returns {string}
+   */
+  refFilter(branchName) {
+    if (branchName.startsWith("refs/heads/")) {
+      return `heads/${branchName.slice("refs/heads/".length)}`;
+    }
+    if (branchName.startsWith("heads/")) {
+      return branchName;
+    }
+    return `heads/${branchName}`;
+  }
+
+  /**
+   * @param {string} branchName
    * @returns {Promise<string | null>}
    */
   async getRefObjectId(branchName) {
     const response = await this.client.get("refs", {
       searchParams: {
-        filter: this.refName(branchName),
+        filter: this.refFilter(branchName),
         "api-version": "7.1",
       },
     });

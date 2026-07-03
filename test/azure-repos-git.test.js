@@ -38,13 +38,13 @@ describe("AzureReposGit", () => {
     gotMocks.get.mockImplementation(async (resource, options) => {
       if (resource === "refs") {
         const filter = options.searchParams.filter;
-        if (filter === "refs/heads/main") {
+        if (filter === "heads/main") {
           return {
             statusCode: 200,
             body: { value: [{ objectId: "base-sha" }] },
           };
         }
-        if (filter === "refs/heads/entity-sync-plan-abc") {
+        if (filter === "heads/entity-sync-plan-abc") {
           return { statusCode: 200, body: { value: [] } };
         }
       }
