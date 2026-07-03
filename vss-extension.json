@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "entity-sync",
   "name": "Synatic Entity Sync",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "synatic",
   "public": true,
   "description": "Plan and execute Synatic entity sync from Azure Pipelines with Azure Repos auto-commit and pull requests.",

@@ -19,22 +19,22 @@ export function createConsoleLogger() {
 }
 
 /**
- * @param {{ info: Function, warning: Function, debug?: Function }} taskLib
+ * @param {{ warning: Function }} taskLib
  * @returns {import('@synatic/entity-sync-core').SyncLogger}
  */
 export function createTaskLogger(taskLib) {
   return {
     info(message) {
-      taskLib.info(message);
+      console.log(message);
     },
     warning(message) {
       taskLib.warning(message);
     },
     startGroup(name) {
-      taskLib.startGroup(name);
+      console.log(`##[group]${name}`);
     },
     endGroup() {
-      taskLib.endGroup();
+      console.log("##[endgroup]");
     },
   };
 }

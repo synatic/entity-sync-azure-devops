@@ -1,4 +1,4 @@
-import tl from "azure-pipelines-task-lib/task";
+import * as tl from "azure-pipelines-task-lib/task";
 import { buildInputs } from "../src/lib/config-builder.js";
 import { readTaskValues } from "../src/lib/task-inputs.js";
 import { runPlanCommand } from "../src/commands/plan.js";
