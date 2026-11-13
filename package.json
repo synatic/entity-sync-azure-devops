@@ -1,6 +1,6 @@
 {
   "name": "entity-sync-azure-devops",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Azure DevOps Marketplace extension for Synatic entity sync with Azure Repos git support",
   "type": "module",
   "private": true,
@@ -23,7 +23,7 @@
     "node": ">=22"
   },
   "dependencies": {
-    "@synatic/entity-sync-core": "^1.0.0",
+    "@synatic/entity-sync-core": "^1.1.0",
     "azure-pipelines-task-lib": "^5.2.1",
     "got": "^14.4.5"
   },

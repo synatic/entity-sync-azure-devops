@@ -26,6 +26,7 @@ export function readTaskValues(command, reader) {
     previewFirst: reader.getInput("previewFirst"),
     previewOnly: reader.getInput("previewOnly"),
     failOnConflict: reader.getInput("failOnConflict"),
+    executeOptions: reader.getInput("executeOptions") || "{}",
   };
 
   if (normalizedCommand === "plan") {

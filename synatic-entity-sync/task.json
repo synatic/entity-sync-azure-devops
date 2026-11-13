@@ -10,7 +10,7 @@
   "version": {
     "Major": 1,
     "Minor": 0,
-    "Patch": 2
+    "Patch": 3
   },
   "instanceNameFormat": "Synatic Entity Sync $(command)",
   "inputs": [
@@ -163,6 +163,14 @@
       "required": false,
       "defaultValue": "true",
       "helpMarkDown": "For execute: fail when preview reports conflicts."
+    },
+    {
+      "name": "executeOptions",
+      "type": "string",
+      "label": "Execute options (JSON)",
+      "required": false,
+      "defaultValue": "{}",
+      "helpMarkDown": "JSON object for preview/execute (exclude, entityPolicies). Merged over plan.options."
     }
   ],
   "execution": {
